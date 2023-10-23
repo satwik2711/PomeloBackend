@@ -9,8 +9,6 @@ def get_account_details(request, account_id):
     pending_transactions = Transaction.objects.filter(account=account, event_type__name='TXN_AUTHED')
     settled_transactions = Transaction.objects.filter(account=account, event_type__name='TXN_SETTLED')
     data = {
-        'available_credit': account.available_credit,
-        'payable_balance': account.payable_balance,
         'pending_transactions': TransactionSerializer(pending_transactions, many=True).data,
         'settled_transactions': TransactionSerializer(settled_transactions, many=True).data
     }
