@@ -24,12 +24,13 @@ def process_event(request):
 
     for event in data['events']:
         event_type = EventType.objects.get(name=event['eventType'])
+        amount_value = event.get('amount', 0)
         transaction = Transaction.objects.create(
             account=account,
             event_type=event_type,
             event_time=event['eventTime'],
             txn_id=event['txnId'],
-            amount=event['amount']
+            amount=amount_value
         )
 
         if event['eventType'] == 'TXN_AUTHED':
